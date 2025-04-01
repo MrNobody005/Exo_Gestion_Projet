@@ -1,0 +1,20 @@
+@echo off
+setlocal enabledelayedexpansion
+
+:: Créer 1000 fichiers avec des tokens simulés en Base64
+for /l %%i in (1,1,1000) do (
+    :: Générer une chaîne aléatoire simulant un token en Base64
+    set token=token_%%i==dGhpc19pcyBhX3Rlc3RfdG9rZW4=
+    
+    :: Créer un fichier avec un nom CODE_SECRET_%%i.txt et y mettre le token
+    echo !token! > CODE_SECRET_%%i.txt
+)
+
+:: Ajouter tous les fichiers au suivi Git
+git add CODE_SECRET_*.txt
+
+:: Committer les fichiers avec un message
+git commit -m "Ajout de 1000 fichiers CODE_SECRET avec des tokens simulés en Base64"
+
+:: Pousser les fichiers sur GitHub
+git push origin main
